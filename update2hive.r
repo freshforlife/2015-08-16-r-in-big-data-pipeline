@@ -1,0 +1,10 @@
+library(infuser)
+args <- commandArgs(TRUE)
+X <- as.character(args[1])
+temp <- list.files(pattern='TEMPLATE.hql')
+Q <- infuse(temp, timestamp=timestamp,verbose=T)
+fileConn<-file("FINALHQL.hql")
+writeLines(Q, fileConn)
+close(fileConn)
+system('hive -f FINALHQL.hql')
+#this file updates
